@@ -499,16 +499,15 @@ async function checkProjectPackages(verbose = false) {
     }
 }
 async function detectProjectType() {
-    const searchPaths = [
-        process.cwd(),
-        path.join(process.cwd(), '..'),
-        path.join(process.cwd(), '../..'),
-    ];
-    // First, check current directory for config files
+    console.log(chalk.gray('🔍 Detecting project type...'));
     for (const projectType of PROJECT_TYPES) {
+        console.log(chalk.gray(`   Checking ${projectType.name}: ${projectType.files.join(', ')}`));
         for (const file of projectType.files) {
             // Check in current directory first
-            if (await fs.pathExists(path.join(process.cwd(), file))) {
+            const filePath = path.join(process.cwd(), file);
+            console.log(chalk.gray(`     Looking for: ${filePath}`));
+            if (await fs.pathExists(filePath)) {
+                console.log(chalk.green(`     ✅ Found: ${file}`));
                 return projectType;
             }
             // Then check subdirectories for config files
@@ -520,6 +519,7 @@ async function detectProjectType() {
                     if (stats.isDirectory()) {
                         const configPath = path.join(itemPath, file);
                         if (await fs.pathExists(configPath)) {
+                            console.log(chalk.green(`     ✅ Found in subdirectory: ${item}/${file}`));
                             return projectType;
                         }
                     }
@@ -530,6 +530,7 @@ async function detectProjectType() {
             }
         }
     }
+    console.log(chalk.yellow('   No project type detected'));
     return PROJECT_TYPES[0]; // Default to Node.js for single package checks
 }
 async function getDependenciesForProject(projectType) {

@@ -79,24 +79,37 @@ export async function cloneRepo(userRepo, projectName, options = {}) {
         console.log(`${chalk.hex('#ffa502')('Target:')} ${chalk.hex('#95afc0')(targetDir)}`);
         const spinner = ora(chalk.hex('#00d2d3')('🔄 Cloning repository...')).start();
         try {
-            // Use degit to clone the repository with provider-specific handling
-            let degitCommand = `degit ${repoUrl}`;
+            // Check if degit is available, if not try to use npx
+            let degitCommand = '';
+            try {
+                await execAsync('degit --version');
+                degitCommand = 'degit';
+            }
+            catch {
+                // Fallback to npx degit
+                degitCommand = 'npx degit';
+            }
+            // Build the repository URL for degit
+            let degitRepo = repoUrl;
             // Add provider prefix for non-GitHub providers
             if (provider !== 'github') {
                 switch (provider) {
                     case 'gitlab':
-                        degitCommand = `degit gitlab:${repoUrl}`;
+                        degitRepo = `gitlab:${repoUrl}`;
                         break;
                     case 'bitbucket':
-                        degitCommand = `degit bitbucket:${repoUrl}`;
+                        degitRepo = `bitbucket:${repoUrl}`;
                         break;
                     case 'sourcehut':
-                        degitCommand = `degit git.sr.ht/${repoUrl}`;
+                        degitRepo = `git.sr.ht/${repoUrl}`;
                         break;
                 }
             }
-            await execAsync(`${degitCommand} ${targetDir}`, {
-                cwd: process.cwd()
+            const fullCommand = `${degitCommand} ${degitRepo} ${targetDir}`;
+            spinner.text = chalk.hex('#00d2d3')(`Executing: ${fullCommand}`);
+            await execAsync(fullCommand, {
+                cwd: process.cwd(),
+                timeout: 60000 // 60 second timeout
             });
             spinner.succeed(chalk.hex('#10ac84')(`✅ Repository cloned successfully from ${provider.toUpperCase()}`));
             // Install dependencies if package.json exists
