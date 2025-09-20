@@ -1,7 +1,8 @@
 # 📦 Package Installer CLI
 
-[![npm version](https://img.shields.io/npm/v/@0xshariq/package-installer.svg)](https://www.npmjs.com/package/@0xshariq/package-installer)
+[![PyPI version](https://img.shields.io/pypi/v/package-installer-cli.svg)](https://pypi.org/project/package-installer-cli/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python](https://img.shields.io/badge/python-%3E%3D3.8-brightgreen.svg)](https://python.org/)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
 
 A **cross-platform, interactive CLI** to scaffold modern web application templates with support for multiple frameworks, languages, and development tools. Create production-ready projects in seconds!
@@ -28,30 +29,27 @@ A **cross-platform, interactive CLI** to scaffold modern web application templat
 ## 📥 Installation
 
 ```bash
-# Using npm
-npm install -g @0xshariq/package-installer
+# Using pip
+pip install package-installer-cli
 
-# Using yarn
-yarn global add @0xshariq/package-installer
-
-# Using pnpm (recommended)
-pnpm add -g @0xshariq/package-installer
+# Using pip3
+pip3 install package-installer-cli
 ```
 
 ## 🎯 Quick Start
 
 ```bash
 # Create new project interactively
-pi create
+package-installer create
 
 # Analyze project with enhanced dashboard
-pi analyze
+package-installer analyze
 
 # Update project dependencies only
-pi update
+package-installer update
 
 # Upgrade CLI to latest version
-pi upgrade-cli
+package-installer upgrade-cli
 ```
 
 ## 📚 Documentation
@@ -67,13 +65,13 @@ pi upgrade-cli
 
 | Command | Description | Usage |
 |---------|-------------|-------|
-| `pi create` | Create new project from templates | `pi create [name]` |
-| `pi analyze` | Enhanced project analytics dashboard | `pi analyze [--detailed]` |
-| `pi update` | Update project dependencies | `pi update [--latest]` |
-| `pi upgrade-cli` | Upgrade CLI to latest version | `pi upgrade-cli` |
-| `pi add` | Add features to existing projects | `pi add [feature]` |
-| `pi doctor` | Diagnose and fix project issues | `pi doctor` |
-| `pi clean` | Clean development artifacts | `pi clean [--all]` |
+| `package-installer create` | Create new project from templates | `package-installer create [name]` |
+| `package-installer analyze` | Enhanced project analytics dashboard | `package-installer analyze [--detailed]` |
+| `package-installer update` | Update project dependencies | `package-installer update [--latest]` |
+| `package-installer upgrade-cli` | Upgrade CLI to latest version | `package-installer upgrade-cli` |
+| `package-installer add` | Add features to existing projects | `package-installer add [feature]` |
+| `package-installer doctor` | Diagnose and fix project issues | `package-installer doctor` |
+| `package-installer clean` | Clean development artifacts | `package-installer clean [--all]` |
 
 *For complete command documentation, see [docs/commands.md](docs/commands.md)*
 
@@ -92,7 +90,8 @@ pi upgrade-cli
 
 ## 🎯 System Requirements
 
-- **Node.js**: 18.0.0 or higher
+- **Python**: 3.8 or higher
+- **Node.js**: 18.0.0 or higher (required for the underlying CLI)
 - **Operating Systems**: Windows, macOS, Linux
 - **Package Managers**: npm, yarn, or pnpm
 - **Git**: Required for project initialization
@@ -103,14 +102,14 @@ pi upgrade-cli
 
 ```bash
 # Clear cache and reinstall
-npm cache clean --force
-npm install -g @0xshariq/package-installer
+pip uninstall package-installer-cli
+pip install package-installer-cli
 
-# Use npx if global installation fails
-npx @0xshariq/package-installer create my-app
+# Use pip with --user if global installation fails
+pip install --user package-installer-cli
 
 # Check CLI status
-pi doctor
+package-installer doctor
 ```
 
 ## 🤝 Contributing
@@ -123,9 +122,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Links
 
-- **NPM Package**: [@0xshariq/package-installer](https://www.npmjs.com/package/@0xshariq/package-installer)
-- **GitHub Repository**: [package-installer-cli](https://github.com/0xshariq/package-installer-cli)
-- **Issues & Feedback**: [GitHub Issues](https://github.com/0xshariq/package-installer-cli/issues)
+- **PyPI Package**: [package-installer-cli](https://pypi.org/project/package-installer-cli/)
+- **GitHub Repository**: [py_package_installer_cli](https://github.com/0xshariq/py_package_installer_cli)
+- **Issues & Feedback**: [GitHub Issues](https://github.com/0xshariq/py_package_installer_cli/issues)
 
 ---
 
