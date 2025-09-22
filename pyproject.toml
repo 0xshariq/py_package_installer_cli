@@ -1,12 +1,9 @@
-[project]
-name = "package-installer-cli"
-version = "1.0.0"
-description = "A powerful CLI tool to bootstrap projects with pre-configured templates and features"ystem]
+[build-system]
 requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "0xshariq/package-installer"
+name = "package-installer-cli"
 version = "1.0.0"
 description = "A powerful CLI tool to bootstrap projects with pre-configured templates and features"
 readme = "README.md"
@@ -59,6 +56,7 @@ keywords = [
     "storage",
     "testing",
     "monitoring"
+]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
