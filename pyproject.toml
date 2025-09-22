@@ -120,6 +120,7 @@ exclude = ["tests*", "docs*", "examples*"]
 "*" = [
     "features/**/*",
     "templates/**/*",
+    "dist/**/*",
     "*.json",
     "*.md",
     "*.txt",
