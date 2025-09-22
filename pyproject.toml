@@ -117,7 +117,7 @@ include = ["*"]
 exclude = ["tests*", "docs*", "examples*"]
 
 [tool.setuptools.package-data]
-"" = [
+"*" = [
     "features/**/*",
     "templates/**/*",
     "*.json",
