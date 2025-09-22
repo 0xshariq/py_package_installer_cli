@@ -40,40 +40,40 @@ pip3 install package-installer-cli
 
 ```bash
 # Create new project interactively
-package-installer create
+pi create
 
 # Analyze project with enhanced dashboard
-package-installer analyze
+pi analyze
 
 # Update project dependencies only
-package-installer update
+pi update
 
 # Upgrade CLI to latest version
-package-installer upgrade-cli
+pi upgrade-cli
 ```
 
 ## 📚 Documentation
 
 | Document | Description |
 |----------|-------------|
-| [📋 Commands](docs/commands.md) | Complete command reference with examples |
-| [⚡ Features](docs/features.md) | Detailed feature documentation and usage |
-| [🎨 Templates](docs/templates.md) | Available templates and customization options |
-| [🚀 Deployment](docs/deploy.md) | Deployment options and platform integration |
+| [📋 Commands](https://github.com/0xshariq/package-installer-cli/tree/main/docs/commands.md) | Complete command reference with examples |
+| [⚡ Features](https://github.com/0xshariq/package-installer-cli/tree/main/docs/features.md) | Detailed feature documentation and usage |
+| [🎨 Templates](https://github.com/0xshariq/package-installer-cli/tree/main/docs/templates.md) | Available templates and customization options |
+| [🚀 Deployment](https://github.com/0xshariq/package-installer-cli/tree/main/docs/deploy.md) | Deployment options and platform integration |
 
 ## 🛠️ Command Overview
 
 | Command | Description | Usage |
 |---------|-------------|-------|
-| `package-installer create` | Create new project from templates | `package-installer create [name]` |
-| `package-installer analyze` | Enhanced project analytics dashboard | `package-installer analyze [--detailed]` |
-| `package-installer update` | Update project dependencies | `package-installer update [--latest]` |
-| `package-installer upgrade-cli` | Upgrade CLI to latest version | `package-installer upgrade-cli` |
-| `package-installer add` | Add features to existing projects | `package-installer add [feature]` |
-| `package-installer doctor` | Diagnose and fix project issues | `package-installer doctor` |
-| `package-installer clean` | Clean development artifacts | `package-installer clean [--all]` |
+| `pi create` | Create new project from templates | `pi create [name]` |
+| `pi analyze` | Enhanced project analytics dashboard | `pi analyze [--detailed]` |
+| `pi update` | Update project dependencies | `pi update [--latest]` |
+| `pi upgrade-cli` | Upgrade CLI to latest version | `pi upgrade-cli` |
+| `pi add` | Add features to existing projects | `pi add [feature]` |
+| `pi doctor` | Diagnose and fix project issues | `pi doctor` |
+| `pi clean` | Clean development artifacts | `pi clean [--all]` |
 
-*For complete command documentation, see [docs/commands.md](docs/commands.md)*
+*For complete command documentation, see [commands](https://github.com/0xshariq/package-installer-cli/tree/main/docs/commands.md)*
 
 ## 🏗️ Supported Project Types
 
@@ -86,7 +86,7 @@ package-installer upgrade-cli
 | **Ruby** | Rails, Sinatra | bundler |
 | **PHP** | Laravel, Symfony | composer |
 
-*For detailed template information, see [docs/templates.md](docs/templates.md)*
+*For detailed template information, see [templates](https://github.com/0xshariq/package-installer-cli/tree/main/docs/templates.md)*
 
 ## 🎯 System Requirements
 
@@ -109,12 +109,12 @@ pip install package-installer-cli
 pip install --user package-installer-cli
 
 # Check CLI status
-package-installer doctor
+pi doctor
 ```
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+We welcome contributions! Please see our [Contributing Guide](https://github.com/0xshariq/package-installer-cli/tree/main/CONTRIBUTING.md) for details.
 
 ## 📄 License
 

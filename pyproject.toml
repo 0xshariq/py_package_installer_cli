@@ -110,17 +110,20 @@ package-installer = "cli:main"
 
 [tool.setuptools]
 package-dir = {"" = "."}
+include-package-data = true
 
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["*"]
-exclude = ["tests*", "docs*", "examples*"]
+exclude = ["tests*", "examples*", ".git*"]
 
 [tool.setuptools.package-data]
 "*" = [
     "features/**/*",
     "templates/**/*",
     "dist/**/*",
+    "package.json",
+    "template.json",
     "*.json",
     "*.md",
     "*.txt",

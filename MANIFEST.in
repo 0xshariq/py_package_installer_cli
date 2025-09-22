@@ -6,11 +6,16 @@ include LICENSE
 include CHANGELOG.md
 include pyproject.toml
 include requirements.txt
+include package.json
+include template.json
+include cli.py
+include __init__.py
 
 # Include package data
-recursive-include py_package_installer_cli *.py
 recursive-include features *
 recursive-include templates *
+recursive-include docs *
+recursive-include dist *
 
 # Exclude development and build files
 exclude .gitignore
