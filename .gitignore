@@ -31,7 +31,6 @@ MANIFEST
 *.spec
 
 # Virtual environments
-.env
 .venv
 env/
 venv/
