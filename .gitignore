@@ -1,6 +1,5 @@
 # Python build artifacts
 build/
-dist/
 *.egg-info/
 *.egg
 __pycache__/
