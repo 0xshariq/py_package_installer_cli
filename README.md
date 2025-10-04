@@ -28,13 +28,25 @@ A **cross-platform, interactive CLI** to scaffold modern web application templat
 
 ## 📥 Installation
 
+### Global Installation (Recommended)
 ```bash
-# Using pip
+# Using pip (system-wide)
 pip install package-installer-cli
 
-# Using pip3
+# Using pip3 (system-wide)
 pip3 install package-installer-cli
 ```
+
+### Local/User Installation
+```bash
+# Install for current user only
+pip install --user package-installer-cli
+
+# Using pip3 for current user only
+pip3 install --user package-installer-cli
+```
+
+**Note**: If you use `--user`, make sure `~/.local/bin` (Linux/Mac) or `%APPDATA%\Python\Scripts` (Windows) is in your PATH.
 
 ## 🎯 Quick Start
 
@@ -96,20 +108,136 @@ pi upgrade-cli
 - **Package Managers**: npm, yarn, or pnpm
 - **Git**: Required for project initialization
 
+## ⚡ Node.js Dependency Management
+
+### 🔄 Automatic Installation (Default)
+When you first run any CLI command, Node.js dependencies are **automatically installed**:
+
+```bash
+# First time usage - auto-installs dependencies
+package-installer create nextjs my-app
+```
+
+The CLI will automatically run `npm install --production` in the package directory.
+
+### 🛠️ Manual Installation (If Auto-Install Fails)
+
+If you see this message:
+```
+[!] Automatic installation of Node.js dependencies failed.
+============================================================
+To use all features of this CLI, please manually install dependencies:
+
+1. Navigate to the package directory:
+   cd /path/to/package/directory
+
+2. Install dependencies:
+   npm install --production
+
+3. Re-run your CLI command
+============================================================
+```
+
+#### For Global Installation:
+```bash
+# Find package location
+pip show package-installer-cli | grep Location
+
+# Navigate to package directory
+cd /usr/local/lib/python3.x/site-packages/package_installer_cli
+# OR (depending on your system)
+cd /home/username/.local/lib/python3.x/site-packages/package_installer_cli
+
+# Install dependencies
+npm install --production
+```
+
+#### For Local/User Installation:
+```bash
+# Navigate to user package directory
+cd ~/.local/lib/python3.x/site-packages/package_installer_cli
+
+# Install dependencies
+npm install --production
+```
+
+#### Common Package Locations:
+- **Linux Global**: `/usr/local/lib/python3.x/site-packages/`
+- **Linux User**: `~/.local/lib/python3.x/site-packages/`
+- **macOS Global**: `/usr/local/lib/python3.x/site-packages/`
+- **macOS User**: `~/Library/Python/3.x/lib/python/site-packages/`
+- **Windows Global**: `C:\Python3x\Lib\site-packages\`
+- **Windows User**: `%APPDATA%\Python\Python3x\site-packages\`
+
+### 🚨 Prerequisites
+Make sure you have Node.js and npm installed:
+```bash
+# Check versions
+node --version    # Should be >= 18.0.0
+npm --version     # Should be >= 8.0.0
+
+# Install Node.js if missing
+# Visit: https://nodejs.org/
+```
+
 ## 🐛 Troubleshooting
 
 ### Quick Fixes
 
+#### Python Package Issues
 ```bash
-# Clear cache and reinstall
+# Clear cache and reinstall (global)
 pip uninstall package-installer-cli
 pip install package-installer-cli
 
-# Use pip with --user if global installation fails
+# Clear cache and reinstall (user)
+pip uninstall package-installer-cli
+pip install --user package-installer-cli
+```
+
+#### Node.js Dependency Issues
+```bash
+# Find your package installation directory
+pip show package-installer-cli | grep Location
+
+# Navigate to that directory + package_installer_cli folder
+cd <Location>/package_installer_cli
+
+# Clean install dependencies
+rm -rf node_modules package-lock.json
+npm install --production
+
+# Verify installation
+ls node_modules  # Should show installed packages
+```
+
+#### PATH Issues (User Installation)
+If `package-installer` command is not found after `--user` installation:
+
+**Linux/macOS:**
+```bash
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+**Windows:**
+Add `%APPDATA%\Python\Scripts` to your PATH environment variable.
+
+#### Permission Issues (Global Installation)
+```bash
+# Try user installation instead
 pip install --user package-installer-cli
 
-# Check CLI status
-pi doctor
+# Or use sudo (Linux/macOS)
+sudo pip install package-installer-cli
+```
+
+#### Complete Reset
+```bash
+# Remove everything and start fresh
+pip uninstall package-installer-cli
+pip cache purge
+pip install package-installer-cli
 ```
 
 ## 🤝 Contributing

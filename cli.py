@@ -62,6 +62,11 @@ def install_dependencies():
         print(f"Error installing dependencies: {e}")
         return False
 
+def get_package_directory():
+    """Get the package directory path for user instructions"""
+    package_dir = Path(__file__).parent
+    return str(package_dir)
+
 def main():
     """Main entry point for the CLI"""
     # Check if Node.js is installed
@@ -78,7 +83,19 @@ def main():
     
     # Install dependencies if needed
     if not install_dependencies():
-        print("Warning: Could not install all dependencies. Some features may not work.")
+        package_dir = get_package_directory()
+        print("\n" + "="*60)
+        print("[!] Automatic installation of Node.js dependencies failed.")
+        print("="*60)
+        print("\nTo use all features of this CLI, please manually install dependencies:")
+        print(f"\n1. Navigate to the package directory:")
+        print(f"   cd {package_dir}")
+        print(f"\n2. Install dependencies:")
+        print(f"   npm install --production")
+        print(f"\n3. Re-run your CLI command")
+        print(f"\nIf you don't have Node.js/npm installed:")
+        print(f"   Visit: https://nodejs.org/ to install Node.js")
+        print("="*60 + "\n")
     
     # Get the directory where this script is installed
     package_dir = Path(__file__).parent
