@@ -82,12 +82,12 @@ dmypy.json
 # PyPI credentials and config
 .pypirc
 
-# Environment variables
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# Environment variables (exclude only root level .env files)
+/.env
+/.env.local
+/.env.development.local
+/.env.test.local
+/.env.production.local
 
 # Logs
 logs
