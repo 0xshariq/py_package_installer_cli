@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "package-installer-cli"
-version = "1.4.3"
+version = "2.0.0"
 description = "A powerful CLI tool to bootstrap projects with pre-configured templates and features"
 readme = "README.md"
 license = {text = "MIT"}
@@ -74,10 +74,7 @@ classifiers = [
     "Environment :: Console",
 ]
 requires-python = ">=3.8"
-dependencies = [
-    # Add any dependencies your Node.js script needs
-    # For now, no Python dependencies are needed since we just call node
-]
+dependencies = []
 
 [project.optional-dependencies]
 dev = [
@@ -105,6 +102,7 @@ Repository = "https://github.com/0xshariq/py_package_installer_cli.git"
 Changelog = "https://github.com/0xshariq/py_package_installer_cli/blob/main/CHANGELOG.md"
 
 [project.scripts]
+pi = "cli:main"
 package-installer = "cli:main"
 0xshariq-installer = "cli:main"
 
@@ -119,11 +117,7 @@ exclude = ["tests*", "examples*", ".git*"]
 
 [tool.setuptools.package-data]
 "*" = [
-    "features/**/*",
-    "templates/**/*",
-    "dist/**/*",
-    "package.json",
-    "template.json",
+    "bundle-standalone/**/*",
     "*.json",
     "*.md",
     "*.txt",

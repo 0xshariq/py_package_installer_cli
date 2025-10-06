@@ -3,7 +3,6 @@
 [![PyPI version](https://img.shields.io/pypi/v/package-installer-cli.svg)](https://pypi.org/project/package-installer-cli/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python](https://img.shields.io/badge/python-%3E%3D3.8-brightgreen.svg)](https://python.org/)
-[![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
 
 A **cross-platform, interactive CLI** to scaffold modern web application templates with support for multiple frameworks, languages, and development tools. Create production-ready projects in seconds!
 
@@ -12,10 +11,10 @@ A **cross-platform, interactive CLI** to scaffold modern web application templat
 - **🎨 Multiple Frameworks**: React, Next.js, Express, Angular, Vue, Rust
 - **🔤 Language Support**: TypeScript & JavaScript variants
 - **🎭 UI Libraries**: Tailwind CSS, Material-UI, shadcn/ui
-- **📦 Smart Package Management**: Auto-detects npm, yarn, pnpm
 - **⚡ Lightning Fast**: Optimized template generation with intelligent caching
 - **🌈 Beautiful CLI**: Gorgeous terminal interface with real-time analytics
 - **🔍 Project Analysis**: Advanced dependency analysis and project insights
+- **📦 Self-Contained**: No external dependencies required - bundled executables
 
 ## ✨ New Features
 
@@ -46,9 +45,9 @@ pip install --user package-installer-cli
 pip3 install --user package-installer-cli
 ```
 
-**Note**: If you use `--user`, make sure `~/.local/bin` (Linux/Mac) or `%APPDATA%\Python\Scripts` (Windows) is in your PATH.
-
 ## 🎯 Quick Start
+
+After installation, you can immediately start using the CLI:
 
 ```bash
 # Create new project interactively
@@ -57,11 +56,11 @@ pi create
 # Analyze project with enhanced dashboard
 pi analyze
 
-# Update project dependencies only
-pi update
+# Add features to existing project
+pi add feature-name
 
-# Upgrade CLI to latest version
-pi upgrade-cli
+# Get help
+pi --help
 ```
 
 ## 📚 Documentation
@@ -72,6 +71,7 @@ pi upgrade-cli
 | [⚡ Features](https://github.com/0xshariq/package-installer-cli/tree/main/docs/features.md) | Detailed feature documentation and usage |
 | [🎨 Templates](https://github.com/0xshariq/package-installer-cli/tree/main/docs/templates.md) | Available templates and customization options |
 | [🚀 Deployment](https://github.com/0xshariq/package-installer-cli/tree/main/docs/deploy.md) | Deployment options and platform integration |
+| [📦 Bundle Info](https://github.com/0xshariq/package-installer-cli/tree/main/docs/bundle-info.md) | Distribution bundle system and cross-platform packaging |
 
 ## 🛠️ Command Overview
 
@@ -89,155 +89,48 @@ pi upgrade-cli
 
 ## 🏗️ Supported Project Types
 
-| Language/Framework | Templates | Package Managers |
-|-------------------|-----------|------------------|
-| **JavaScript/TypeScript** | React, Next.js, Express, Angular, Vue | npm, yarn, pnpm |
-| **Python** | Django, Flask, FastAPI | pip, poetry |
-| **Rust** | Basic, Advanced, Web | cargo |
-| **Go** | CLI, Web, API | go mod |
-| **Ruby** | Rails, Sinatra | bundler |
-| **PHP** | Laravel, Symfony | composer |
+| Language/Framework | Templates Available |
+|-------------------|---------------------|
+| **JavaScript/TypeScript** | React, Next.js, Express, Angular, Vue, Remix |
+| **Python** | Django, Flask |
+| **Rust** | Basic, Advanced Web Applications |
+| **Go** | CLI, Web, API Applications |
+| **Ruby** | Rails Applications |
+| **React Native** | Mobile Applications |
 
 *For detailed template information, see [templates](https://github.com/0xshariq/package-installer-cli/tree/main/docs/templates.md)*
 
 ## 🎯 System Requirements
 
 - **Python**: 3.8 or higher
-- **Node.js**: 18.0.0 or higher (required for the underlying CLI)
 - **Operating Systems**: Windows, macOS, Linux
-- **Package Managers**: npm, yarn, or pnpm
-- **Git**: Required for project initialization
-
-## ⚡ Node.js Dependency Management
-
-### 🔄 Automatic Installation (Default)
-When you first run any CLI command, Node.js dependencies are **automatically installed**:
-
-```bash
-# First time usage - auto-installs dependencies
-package-installer create nextjs my-app
-```
-
-The CLI will automatically run `npm install --production` in the package directory.
-
-### 🛠️ Manual Installation (If Auto-Install Fails)
-
-If you see this message:
-```
-[!] Automatic installation of Node.js dependencies failed.
-============================================================
-To use all features of this CLI, please manually install dependencies:
-
-1. Navigate to the package directory:
-   cd /path/to/package/directory
-
-2. Install dependencies:
-   npm install --production
-
-3. Re-run your CLI command
-============================================================
-```
-
-#### For Global Installation:
-```bash
-# Find package location
-pip show package-installer-cli | grep Location
-
-# Navigate to package directory
-cd /usr/local/lib/python3.x/site-packages/package_installer_cli
-# OR (depending on your system)
-cd /home/username/.local/lib/python3.x/site-packages/package_installer_cli
-
-# Install dependencies
-npm install --production
-```
-
-#### For Local/User Installation:
-```bash
-# Navigate to user package directory
-cd ~/.local/lib/python3.x/site-packages/package_installer_cli
-
-# Install dependencies
-npm install --production
-```
-
-#### Common Package Locations:
-- **Linux Global**: `/usr/local/lib/python3.x/site-packages/`
-- **Linux User**: `~/.local/lib/python3.x/site-packages/`
-- **macOS Global**: `/usr/local/lib/python3.x/site-packages/`
-- **macOS User**: `~/Library/Python/3.x/lib/python/site-packages/`
-- **Windows Global**: `C:\Python3x\Lib\site-packages\`
-- **Windows User**: `%APPDATA%\Python\Python3x\site-packages\`
-
-### 🚨 Prerequisites
-Make sure you have Node.js and npm installed:
-```bash
-# Check versions
-node --version    # Should be >= 18.0.0
-npm --version     # Should be >= 8.0.0
-
-# Install Node.js if missing
-# Visit: https://nodejs.org/
-```
+- **Architecture**: x64 (64-bit systems)
 
 ## 🐛 Troubleshooting
 
 ### Quick Fixes
 
-#### Python Package Issues
 ```bash
-# Clear cache and reinstall (global)
+# Reinstall the package
 pip uninstall package-installer-cli
 pip install package-installer-cli
 
-# Clear cache and reinstall (user)
-pip uninstall package-installer-cli
+# For user installation
 pip install --user package-installer-cli
 ```
 
-#### Node.js Dependency Issues
-```bash
-# Find your package installation directory
-pip show package-installer-cli | grep Location
+### Command Not Found Issues
 
-# Navigate to that directory + package_installer_cli folder
-cd <Location>/package_installer_cli
+If `package-installer` command is not found after installation:
 
-# Clean install dependencies
-rm -rf node_modules package-lock.json
-npm install --production
+**For user installation (`--user` flag):**
+- **Linux/macOS**: Add `~/.local/bin` to your PATH
+- **Windows**: Add `%APPDATA%\Python\Scripts` to your PATH
 
-# Verify installation
-ls node_modules  # Should show installed packages
-```
-
-#### PATH Issues (User Installation)
-If `package-installer` command is not found after `--user` installation:
-
-**Linux/macOS:**
-```bash
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
-source ~/.bashrc
-```
-
-**Windows:**
-Add `%APPDATA%\Python\Scripts` to your PATH environment variable.
-
-#### Permission Issues (Global Installation)
+**For permission issues on Linux/macOS:**
 ```bash
 # Try user installation instead
 pip install --user package-installer-cli
-
-# Or use sudo (Linux/macOS)
-sudo pip install package-installer-cli
-```
-
-#### Complete Reset
-```bash
-# Remove everything and start fresh
-pip uninstall package-installer-cli
-pip cache purge
-pip install package-installer-cli
 ```
 
 ## 🤝 Contributing

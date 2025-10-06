@@ -2,116 +2,90 @@
 import subprocess
 import sys
 import os
-import json
+import platform
 from pathlib import Path
 
-def check_node_installed():
-    """Check if Node.js is installed"""
-    try:
-        result = subprocess.run(["node", "--version"], capture_output=True, text=True)
-        if result.returncode == 0:
-            return True
-    except FileNotFoundError:
-        pass
-    return False
-
-def check_npm_installed():
-    """Check if npm is installed"""
-    try:
-        result = subprocess.run(["npm", "--version"], capture_output=True, text=True)
-        if result.returncode == 0:
-            return True
-    except FileNotFoundError:
-        pass
-    return False
-
-def install_dependencies():
-    """Install Node.js dependencies if needed"""
-    # Get the directory where this script is installed
-    package_dir = Path(__file__).parent
-    package_json_path = package_dir / "package.json"
-    node_modules_path = package_dir / "node_modules"
+def find_bundle_standalone():
+    """Find the bundle-standalone directory in various installation scenarios"""
+    # Get the directory where this script is located
+    script_dir = Path(__file__).parent.resolve()
     
-    # Check if dependencies are already installed
-    if node_modules_path.exists():
-        return True
-    
-    if not package_json_path.exists():
-        print("Warning: package.json not found. Some features may not work.")
-        return False
-    
-    print("Installing Node.js dependencies for the first time...")
-    print("This may take a few minutes...")
-    
-    try:
-        # Change to package directory and install dependencies
-        result = subprocess.run(
-            ["npm", "install", "--production"],
-            cwd=package_dir,
-            capture_output=True,
-            text=True
-        )
+    # Try different paths for bundle-standalone
+    possible_paths = [
+        # For local development and pip install -e . (editable install)
+        script_dir / "bundle-standalone",
         
-        if result.returncode == 0:
-            print("Dependencies installed successfully!")
-            return True
-        else:
-            print(f"Error installing dependencies: {result.stderr}")
-            return False
-    except Exception as e:
-        print(f"Error installing dependencies: {e}")
-        return False
-
-def get_package_directory():
-    """Get the package directory path for user instructions"""
-    package_dir = Path(__file__).parent
-    return str(package_dir)
+        # For global pip install (when installed as a package)
+        script_dir / "bundle-standalone",
+        
+        # For site-packages installation
+        script_dir.parent / "bundle-standalone",
+        
+        # For user installation
+        Path.home() / ".local" / "lib" / "python*" / "site-packages" / "bundle-standalone",
+    ]
+    
+    # Check each possible path
+    for path in possible_paths:
+        if path.exists() and (path / "pi").exists():
+            return path
+    
+    # If not found, try to find it recursively from the script directory
+    for parent in [script_dir] + list(script_dir.parents):
+        bundle_path = parent / "bundle-standalone"
+        if bundle_path.exists() and (bundle_path / "pi").exists():
+            return bundle_path
+    
+    return None
 
 def main():
-    """Main entry point for the CLI"""
-    # Check if Node.js is installed
-    if not check_node_installed():
-        print("Error: Node.js is not installed.")
-        print("Please install Node.js from https://nodejs.org/")
+    """Main entry point for the CLI (runs the standalone bundled executable)"""
+    standalone_dir = find_bundle_standalone()
+    
+    if standalone_dir is None:
+        print("Error: bundle-standalone directory not found.")
+        print("The package may be corrupted or not properly installed.")
+        print("Please reinstall the package:")
+        print("  pip install --upgrade --force-reinstall package-installer-cli")
         sys.exit(1)
     
-    # Check if npm is installed
-    if not check_npm_installed():
-        print("Error: npm is not installed.")
-        print("Please install npm (usually comes with Node.js)")
+    pi_executable = standalone_dir / "pi"
+    
+    if not pi_executable.exists():
+        print(f"Error: pi executable not found in {standalone_dir}")
+        print("The package may be corrupted. Please reinstall:")
+        print("  pip install --upgrade --force-reinstall package-installer-cli")
         sys.exit(1)
     
-    # Install dependencies if needed
-    if not install_dependencies():
-        package_dir = get_package_directory()
-        print("\n" + "="*60)
-        print("[!] Automatic installation of Node.js dependencies failed.")
-        print("="*60)
-        print("\nTo use all features of this CLI, please manually install dependencies:")
-        print(f"\n1. Navigate to the package directory:")
-        print(f"   cd {package_dir}")
-        print(f"\n2. Install dependencies:")
-        print(f"   npm install --production")
-        print(f"\n3. Re-run your CLI command")
-        print(f"\nIf you don't have Node.js/npm installed:")
-        print(f"   Visit: https://nodejs.org/ to install Node.js")
-        print("="*60 + "\n")
-    
-    # Get the directory where this script is installed
-    package_dir = Path(__file__).parent
-    dist_path = package_dir / "dist" / "index.js"
-    
-    if not dist_path.exists():
-        print(f"Error: Required file not found: {dist_path}")
-        sys.exit(1)
-    
-    # Run the Node.js CLI
     try:
-        subprocess.run(["node", str(dist_path)] + sys.argv[1:])
+        # Make sure the binary is executable (for Unix systems)
+        system = platform.system().lower()
+        if system in ("linux", "darwin"):
+            # Set executable permissions
+            current_mode = pi_executable.stat().st_mode
+            pi_executable.chmod(current_mode | 0o111)
+        
+        # Run the standalone executable with all arguments passed to this script
+        result = subprocess.run([str(pi_executable)] + sys.argv[1:])
+        sys.exit(result.returncode)
+        
     except KeyboardInterrupt:
+        # Handle Ctrl+C gracefully
         sys.exit(1)
+        
+    except FileNotFoundError:
+        print(f"Error: Could not execute {pi_executable}")
+        print("The executable may be corrupted or incompatible with your system.")
+        sys.exit(1)
+        
+    except PermissionError:
+        print(f"Error: Permission denied when trying to execute {pi_executable}")
+        print("Please check file permissions or run with appropriate privileges.")
+        sys.exit(1)
+        
     except Exception as e:
-        print(f"Error running CLI: {e}")
+        print(f"Error: Failed to run the CLI: {e}")
+        print("Please check your installation and try again.")
         sys.exit(1)
 
 if __name__ == "__main__":

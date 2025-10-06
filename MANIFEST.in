@@ -12,10 +12,7 @@ include cli.py
 include __init__.py
 
 # Include package data
-recursive-include features *
-recursive-include templates *
-recursive-include docs *
-recursive-include dist *
+recursive-include bundle-standalone *
 
 # Exclude development and build files
 exclude .gitignore
