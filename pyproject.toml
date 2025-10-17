@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "package-installer-cli"
-version = "2.3.0"
+version = "2.4.0"
 description = "A powerful CLI tool to bootstrap projects with pre-configured templates and features"
 readme = "README.md"
 license = {text = "MIT"}
